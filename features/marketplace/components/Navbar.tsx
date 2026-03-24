@@ -16,24 +16,24 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-[50] w-full border-b border-border bg-surface/80 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 lg:px-10">
+      <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 lg:px-10">
         
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white transition-transform group-hover:scale-110 shadow-lg shadow-primary/20">
-            <Sprout className="h-6 w-6" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white transition-transform group-hover:scale-110 shadow-lg shadow-primary/20">
+            <Sprout className="h-5 w-5" />
           </div>
-          <span className="text-xl font-black text-primary tracking-tight">Agri<span className="text-foreground">Hub</span></span>
+          <span className="text-lg font-black text-primary tracking-tight">Agri<span className="text-foreground">Hub</span></span>
         </Link>
 
         {/* Search Bar */}
-        <div className="relative hidden w-full max-w-md md:block lg:max-w-xl">
-          <div className="group relative flex h-12 items-center overflow-hidden rounded-full border-2 border-border/50 bg-background/50 transition-all focus-within:border-primary focus-within:bg-white focus-within:shadow-md">
-            <Search className="absolute left-4 h-5 w-5 text-muted transition-colors group-focus-within:text-primary" />
+        <div className="relative hidden w-full max-w-sm md:block lg:max-w-md">
+          <div className="group relative flex h-10 items-center overflow-hidden rounded-full border-2 border-border/50 bg-background/50 transition-all focus-within:border-primary focus-within:bg-white focus-within:shadow-md">
+            <Search className="absolute left-3.5 h-4 w-4 text-muted transition-colors group-focus-within:text-primary" />
             <input
               type="text"
               placeholder="Search for farm produce, location..."
-              className="h-full w-full bg-transparent pl-12 pr-4 text-sm font-bold outline-none placeholder:text-muted/60"
+              className="h-full w-full bg-transparent pl-11 pr-4 text-xs font-bold outline-none placeholder:text-muted/60"
             />
           </div>
         </div>
@@ -42,22 +42,22 @@ export function Navbar() {
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 lg:gap-6">
           <NavAction 
             href="/buyer/orders" 
-            icon={<ClipboardList className="h-5 w-5" />} 
+            icon={<ClipboardList className="h-4 w-4" />} 
             label="Orders" 
             isActive={pathname === '/buyer/orders'}
           />
           <NavAction
             href="/buyer/cart"
-            icon={<ShoppingCart className="h-5 w-5" />}
+            icon={<ShoppingCart className="h-4 w-4" />}
             label="Cart"
             count={cartCount}
             isActive={pathname === "/buyer/cart"}
           />
           
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-1">
             <NavAction 
               href="/farmers" 
-              icon={<Tractor className="h-5 w-5" />} 
+              icon={<Tractor className="h-4 w-4" />} 
               label="Farmers" 
               isActive={pathname === '/farmers'} 
             />
@@ -72,9 +72,9 @@ export function Navbar() {
               {isFarmer && (
                 <Link
                   href="/farmer/dashboard"
-                  className="hidden lg:flex items-center gap-2 rounded-xl bg-primary/10 px-4 py-2.5 text-xs font-black text-primary transition hover:bg-primary/20"
+                  className="hidden lg:flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-[10px] font-black text-primary transition hover:bg-primary/20"
                 >
-                  <LayoutDashboard className="h-4 w-4" />
+                  <LayoutDashboard className="h-3.5 w-3.5" />
                   DASHBOARD
                 </Link>
               )}
@@ -85,10 +85,10 @@ export function Navbar() {
                 </span>
                 <Link
                   href="/buyer/profile"
-                  className="rounded-xl border-2 border-border bg-white p-2.5 text-xs font-bold text-muted transition hover:border-primary/50 hover:text-primary"
+                  className="rounded-lg border-2 border-border bg-white p-2 text-xs font-bold text-muted transition hover:border-primary/50 hover:text-primary"
                   title="Profile"
                 >
-                  <User className="h-5 w-5" />
+                  <User className="h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -96,13 +96,13 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <Link
                 href="/login"
-                className="rounded-xl border-2 border-border bg-white px-5 py-2.5 text-xs font-black text-muted transition hover:border-primary/50 hover:text-primary"
+                className="rounded-lg border-2 border-border bg-white px-4 py-2 text-[10px] font-black text-muted transition hover:border-primary/50 hover:text-primary"
               >
                 LOGIN
               </Link>
               <Link
                 href="/signup"
-                className="hidden sm:flex rounded-xl bg-primary px-5 py-2.5 text-xs font-black text-white shadow-lg shadow-primary/20 transition hover:bg-primary/90"
+                className="hidden sm:flex rounded-lg bg-primary px-4 py-2 text-[10px] font-black text-white shadow-lg shadow-primary/20 transition hover:bg-primary/90"
               >
                 SIGN UP
               </Link>
@@ -139,9 +139,9 @@ function NavAction({ icon, label, count, href, isActive }: NavActionProps) {
           </span>
         )}
       </div>
-      <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest">{label}</span>
+      <span className="text-[10px] lg:text-[11px] font-black uppercase tracking-widest leading-none">{label}</span>
       {isActive && (
-        <span className="absolute -bottom-[21px] left-0 h-[3px] w-full rounded-full bg-primary animate-in fade-in zoom-in-50" />
+        <span className="absolute -bottom-[19px] left-0 h-[3px] w-full rounded-full bg-primary animate-in fade-in zoom-in-50" />
       )}
     </Link>
   );

@@ -69,7 +69,7 @@ export function ProductDetail({ listing }: ProductDetailProps) {
             Back to Marketplace
           </Link>
         </div>
-        <div className="bg-white rounded-[32px] border-2 border-border/50 shadow-sm overflow-hidden min-h-[600px] flex flex-col md:flex-row">
+        <div className="bg-white rounded-[24px] border-2 border-border/50 shadow-sm overflow-hidden flex flex-col md:flex-row">
           
           {/* Image Gallery */}
           <div className="w-full md:w-1/2 bg-surface p-8 flex flex-col items-center justify-center relative border-r border-border/50">
@@ -98,108 +98,108 @@ export function ProductDetail({ listing }: ProductDetailProps) {
           </div>
 
           {/* Product Info */}
-          <div className="w-full md:w-1/2 p-10 flex flex-col">
-             <div className="mb-2">
-                <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">{listing.category}</span>
+          <div className="w-full md:w-1/2 p-8 flex flex-col">
+             <div className="mb-1">
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary leading-none">Market &gt; {listing.category}</span>
              </div>
-             <h1 className="text-4xl font-black text-foreground tracking-tight mb-4">{listing.productName}</h1>
+             <h1 className="text-2xl font-black text-foreground tracking-tight mb-3 leading-tight">{listing.productName}</h1>
              
-             <div className="flex items-center gap-6 mb-8 py-4 border-y border-border/50">
+             <div className="flex items-center gap-5 mb-6 py-4 border-y border-border/50">
                 <div className="flex flex-col">
-                   <span className="text-xs font-black text-muted uppercase tracking-widest mb-1">Price per {listing.unit}</span>
-                   <span className="text-3xl font-black text-primary">{formatNaira(listing.priceInKobo)}</span>
+                   <span className="text-[9px] font-black text-muted uppercase tracking-widest mb-1">Price / {listing.unit}</span>
+                   <span className="text-xl font-black text-primary leading-none">{formatNaira(listing.priceInKobo)}</span>
                 </div>
-                <div className="h-10 w-px bg-border/50" />
+                <div className="h-8 w-px bg-border/50" />
                 <div className="flex flex-col">
-                   <span className="text-xs font-black text-muted uppercase tracking-widest mb-1">Availability</span>
-                   <span className="text-lg font-black text-foreground flex items-center gap-1.5">
-                      <Clock className="h-4 w-4 text-emerald-600" />
-                      {listing.quantity} {listing.unit} In Stock
+                   <span className="text-[9px] font-black text-muted uppercase tracking-widest mb-1">Inventory</span>
+                   <span className="text-base font-black text-foreground flex items-center gap-1.5 leading-none">
+                      <Clock className="h-3.5 w-3.5 text-emerald-600" />
+                      {listing.quantity} {listing.unit}
                    </span>
                 </div>
              </div>
 
-             <p className="text-muted font-medium leading-relaxed mb-8">
-               {listing.description || "No description provided for this listing. High-quality and fresh produce sourced directly from our verified farm partners."}
+             <p className="text-xs font-bold text-muted/80 leading-relaxed mb-6">
+               {listing.description || "High-quality produce sourced directly from our verified farm partners."}
              </p>
 
              {/* Farmer Details */}
-             <div className="bg-surface rounded-2xl p-6 border border-border/50 mb-8">
-                <div className="flex items-center gap-4">
-                   <div className="h-12 w-12 rounded-full bg-white border-2 border-primary flex items-center justify-center shadow-sm">
-                      <User className="h-6 w-6 text-primary" />
+             <div className="bg-surface rounded-xl p-4 border border-border/50 mb-6">
+                <div className="flex items-center gap-3">
+                   <div className="h-9 w-9 rounded-lg bg-white border-2 border-primary flex items-center justify-center shadow-sm">
+                      <User className="h-4 w-4 text-primary" />
                    </div>
-                   <div>
-                      <h3 className="text-lg font-black text-foreground">{listing.farmerName}</h3>
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-muted">
-                         <MapPin className="h-3.5 w-3.5" />
-                         {listing.farmerLocation || "Location Not Set"}
+                   <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-black text-foreground truncate">{listing.farmerName}</h3>
+                      <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted">
+                         <MapPin className="h-3 w-3" />
+                         <span className="truncate">{listing.farmerLocation || "Location Not Set"}</span>
                       </div>
                    </div>
                    <div className="ml-auto">
-                      <Link href={`/farmer/${listing.farmerId}`} className="text-[10px] font-black uppercase tracking-widest text-primary hover:underline underline-offset-4">View Profile &rarr;</Link>
+                      <Link href={`/farmer/${listing.farmerId}`} className="text-[9px] font-black uppercase tracking-widest text-primary hover:underline underline-offset-4">Profile &rarr;</Link>
                    </div>
                 </div>
              </div>
 
-             {/* Order Controls */}
-             <div className="mt-auto space-y-6">
-                <div className="flex items-center gap-6">
-                   <div className="flex flex-col gap-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted">Quantity</label>
-                      <div className="flex items-center gap-1 rounded-xl border-2 border-border bg-white p-1">
+              {/* Order Controls */}
+              <div className="mt-auto space-y-5">
+                <div className="flex items-center gap-4">
+                   <div className="flex flex-col gap-1.5">
+                      <label className="text-[9px] font-black uppercase tracking-widest text-muted">Stock Amount</label>
+                      <div className="flex items-center gap-0.5 rounded-lg border-2 border-border bg-white p-0.5">
                          <button 
                            onClick={decrementQty}
-                           className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-surface text-muted transition-all"
+                           className="h-7 w-7 rounded-md flex items-center justify-center hover:bg-surface text-muted transition-all"
                          >
-                            <Minus className="h-4 w-4" />
+                            <Plus className="h-3 w-3 rotate-45" />
                          </button>
-                         <span className="w-10 text-center font-black text-foreground">{quantity}</span>
+                         <span className="w-8 text-center text-sm font-black text-foreground">{quantity}</span>
                          <button 
                            onClick={incrementQty}
-                           className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-surface text-muted transition-all"
+                           className="h-7 w-7 rounded-md flex items-center justify-center hover:bg-surface text-muted transition-all"
                          >
-                            <Plus className="h-4 w-4" />
+                            <Plus className="h-3 w-3" />
                          </button>
                       </div>
                    </div>
                    
-                   <div className="flex flex-col gap-2 flex-1">
-                      <label className="text-xs font-black uppercase tracking-widest text-muted">Estimated Total</label>
-                      <div className="h-[44px] flex items-center px-4 rounded-xl bg-primary/10 border-2 border-primary/20">
-                         <span className="text-xl font-black text-primary">{formatNaira(listing.priceInKobo * quantity)}</span>
+                   <div className="flex flex-col gap-1.5 flex-1">
+                      <label className="text-[9px] font-black uppercase tracking-widest text-muted">Grand Total</label>
+                      <div className="h-[36px] flex items-center px-4 rounded-lg bg-primary/5 border border-primary/10">
+                         <span className="text-lg font-black text-primary">{formatNaira(listing.priceInKobo * quantity)}</span>
                       </div>
                    </div>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3">
                   <button
                     onClick={handleAddToCart}
                     disabled={isInCart}
                     className={cn(
-                      "flex-1 flex h-14 items-center justify-center gap-3 rounded-2xl px-8 text-sm font-black text-white transition-all",
+                      "flex-1 flex h-11 items-center justify-center gap-2 rounded-xl px-6 text-[10px] font-black uppercase tracking-widest text-white transition-all shadow-md shadow-primary/10",
                       isInCart
-                        ? "bg-emerald-600 shadow-xl shadow-emerald-500/20 cursor-default"
-                        : "bg-primary shadow-xl shadow-primary/20 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98]"
+                        ? "bg-emerald-600 cursor-default"
+                        : "bg-primary hover:bg-primary/90 active:scale-[0.98]"
                     )}
                     title="Add to cart"
                   >
-                    <ShoppingBag className="h-5 w-5" />
-                    {isInCart ? "ADDED TO CART" : "ADD TO CART"}
+                    <ShoppingBag className="h-4 w-4" />
+                    {isInCart ? "Already in Cart" : "Secure Harvest"}
                   </button>
                   <Link
                     href="/buyer/cart"
-                    className="flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-border bg-white text-muted hover:border-primary/50 hover:text-primary transition-all"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-border bg-white text-muted hover:border-primary/50 hover:text-primary transition-all transition-colors"
                     title="Go to cart"
                   >
-                    <Truck className="h-5 w-5" />
+                    <Truck className="h-4 w-4" />
                   </Link>
                 </div>
                 {cartMessage ? (
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-primary">
+                  <div className="flex flex-wrap items-center gap-2 text-[10px] font-black text-primary border-t border-border/50 pt-2">
                     <span>{cartMessage}</span>
-                    <Link href="/buyer/cart" className="underline underline-offset-2">
-                      Proceed to checkout
+                    <Link href="/buyer/cart" className="underline underline-offset-4 uppercase tracking-widest ml-auto">
+                      Checkout &rarr;
                     </Link>
                   </div>
                 ) : null}

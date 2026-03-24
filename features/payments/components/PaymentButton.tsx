@@ -19,7 +19,7 @@ export const PaymentButton = ({ orderId, amountInKobo, email, callbackUrl }: Pro
       disabled={initiatePayment.isPending}
       onClick={() =>
         initiatePayment.mutate({
-          orderId,
+          orderIds: [orderId],
           amount: amountInKobo,
           email,
           callbackUrl,

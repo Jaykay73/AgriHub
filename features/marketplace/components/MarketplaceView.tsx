@@ -19,16 +19,16 @@ export const MarketplaceView = () => {
       <Navbar />
       
       {/* Category Navigation */}
-      <div className="bg-white border-b border-border/50 py-6">
+      <div className="bg-white border-b border-border/50 py-4">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-2 lg:pb-0">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
              {["All Produce", "Poultry", "Tubers", "Grains", "Vegetables", "Oils", "Fruits", "Livestock"].map((cat) => (
                 <button
                   key={cat}
                   className={cn(
-                    "whitespace-nowrap rounded-full px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all",
+                    "whitespace-nowrap rounded-full px-5 py-2 text-[10px] font-black uppercase tracking-widest transition-all",
                     cat === "All Produce" 
-                      ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                      ? "bg-primary text-white shadow-md shadow-primary/10" 
                       : "bg-surface text-muted hover:bg-border/50 hover:text-foreground"
                   )}
                 >
@@ -53,33 +53,33 @@ export const MarketplaceView = () => {
           </div>
 
           {/* Product Feed */}
-          <div className="flex-1 space-y-10">
+          <div className="flex-1 space-y-8">
             {/* Feature Banner */}
-            <div className="group relative overflow-hidden rounded-[40px] bg-primary p-12 text-white shadow-xl shadow-primary/10 transition-all hover:shadow-2xl hover:shadow-primary/20">
-               <div className="absolute top-0 right-0 p-48 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-white/15 transition-all" />
+            <div className="group relative overflow-hidden rounded-[32px] bg-primary p-10 text-white shadow-lg shadow-primary/10 transition-all hover:shadow-xl hover:shadow-primary/20">
+               <div className="absolute top-0 right-0 p-40 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-white/15 transition-all" />
                
-               <div className="relative z-10 max-w-2xl space-y-6">
-                  <div className="inline-block rounded-full bg-white/20 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-md">
+               <div className="relative z-10 max-w-xl space-y-4">
+                  <div className="inline-block rounded-full bg-white/20 px-3 py-1 text-[9px] font-black uppercase tracking-[0.2em] backdrop-blur-md">
                      New Arrival
                   </div>
-                  <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
-                    Premium Hill Country <span className="text-white opacity-60 italic">Yams</span> Just Harvested.
+                  <h2 className="text-3xl font-black tracking-tight sm:text-4xl leading-tight">
+                    Premium Hill Country <span className="text-white opacity-60 italic underline decoration-white/20 underline-offset-8">Yams</span> Just Harvested.
                   </h2>
-                  <p className="text-sm font-bold opacity-80 max-w-lg leading-relaxed">
-                    Direct from Benue state. Verified organic and blockchain-tracked for ultimate quality assurance. Sourced from our best farm collective.
+                  <p className="text-xs font-bold opacity-70 max-w-md leading-relaxed">
+                    Direct from Benue state. Verified organic and blockchain-tracked for ultimate quality assurance.
                   </p>
-                  <button className="flex h-14 items-center gap-3 rounded-2xl bg-[#f4a261] px-8 text-xs font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-[#f4a261]/20 transition-all hover:bg-[#e76f51] hover:-translate-y-1 active:translate-y-0 active:scale-[0.98]">
+                  <button className="flex h-12 items-center gap-2 rounded-xl bg-[#f4a261] px-6 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-md shadow-[#f4a261]/10 transition-all hover:bg-[#e76f51] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]">
                      Shop Now
-                     <ChevronRight className="h-4 w-4" />
+                     <ChevronRight className="h-3.5 w-3.5" />
                   </button>
                </div>
             </div>
 
-            <div className="flex flex-col gap-4 border-b border-border/50 pb-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 border-b border-border/50 pb-5 sm:flex-row sm:items-center sm:justify-between">
                <div>
-                  <h2 className="text-2xl font-black text-foreground tracking-tight">
+                  <h2 className="text-xl font-black text-foreground tracking-tight">
                     {category === "All" ? "Featured Products" : category}
-                    <span className="ml-3 text-sm font-bold text-muted bg-surface px-3 py-1 rounded-full border border-border/50 inline-block align-middle">
+                    <span className="ml-3 text-[10px] font-black text-muted bg-surface px-2.5 py-0.5 rounded-full border border-border/50 inline-block align-middle">
                       {listings.length} Results
                     </span>
                   </h2>

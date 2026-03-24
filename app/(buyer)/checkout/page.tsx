@@ -37,8 +37,8 @@ function CheckoutContent() {
 
     if (!cart.items.length) {
       return (
-        <div className="flex min-h-[60vh] flex-col items-center justify-center p-8 text-center bg-white rounded-[40px] border-2 border-border/50 max-w-xl mx-auto shadow-sm">
-          <h1 className="text-2xl font-black text-foreground tracking-tight mb-2 uppercase">Cart Is Empty</h1>
+        <div className="flex min-h-[40vh] flex-col items-center justify-center p-6 text-center bg-white rounded-2xl border-2 border-border/50 max-w-lg mx-auto shadow-sm">
+          <h1 className="text-xl font-black text-foreground tracking-tight mb-2 uppercase">Cart Is Empty</h1>
           <p className="text-muted font-medium max-w-sm mb-8 text-sm">
             Add at least one product to continue checkout.
           </p>
@@ -66,11 +66,11 @@ function CheckoutContent() {
 
   if (isError || !listing) {
     return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center p-8 text-center bg-white rounded-[40px] border-2 border-border/50 max-w-xl mx-auto shadow-sm">
-        <div className="h-20 w-20 rounded-full bg-red-50 flex items-center justify-center text-red-600 mb-6 border border-red-100">
-           <Package className="h-10 w-10 opacity-20" />
+      <div className="flex min-h-[40vh] flex-col items-center justify-center p-6 text-center bg-white rounded-2xl border-2 border-border/50 max-w-lg mx-auto shadow-sm">
+        <div className="h-16 w-16 rounded-full bg-red-50 flex items-center justify-center text-red-600 mb-4 border border-red-100">
+           <Package className="h-8 w-8 opacity-20" />
         </div>
-        <h1 className="text-2xl font-black text-foreground tracking-tight mb-2 uppercase">Checkout Error</h1>
+        <h1 className="text-xl font-black text-foreground tracking-tight mb-2 uppercase">Checkout Error</h1>
         <p className="text-muted font-medium max-w-sm mb-8 text-sm">Unable to find the produce you're trying to order. The listing may have expired or been removed.</p>
         <Link 
           href="/marketplace"
@@ -110,11 +110,11 @@ export default function CheckoutPage() {
         </div>
       </header>
 
-      <main className="flex-1 py-12 px-4 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [background-position:center]">
-        <div className="mx-auto max-w-7xl relative">
-           <div className="mb-12 text-center max-w-xl mx-auto space-y-3">
-              <h1 className="text-3xl font-black text-foreground tracking-tight uppercase leading-none">Finalizing your Harvest</h1>
-              <p className="text-[10px] font-bold text-muted uppercase tracking-[0.3em]">Direct from farmer &bull; Escrow Protected &bull; 2026</p>
+      <main className="flex-1 py-10 px-4 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [background-position:center]">
+        <div className="mx-auto max-w-6xl relative">
+           <div className="mb-8 text-center max-w-xl mx-auto space-y-2">
+              <h1 className="text-2xl font-black text-foreground tracking-tight uppercase leading-none">Finalizing your Harvest</h1>
+              <p className="text-[9px] font-bold text-muted uppercase tracking-[0.3em]">Direct &bull; Protected &bull; 2026</p>
            </div>
            
            <Suspense fallback={<div className="flex justify-center py-20"><Spinner className="h-10 w-10 text-primary" /></div>}>
