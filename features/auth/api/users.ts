@@ -8,11 +8,24 @@ import {
   query,
   where,
   orderBy,
-  limit
+  limit,
+  updateDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { logger } from "@/lib/logger";
 import type { User } from "@/shared/types";
+
+// ...existing functions...
+
+export const updateUser = async (uid: string, data: Partial<User>): Promise<void> => {
+  logger.info("auth/api/users", "Updating user profile", { uid, fields: Object.keys(data) });
+  const dbClient = getDb();
+  await updateDoc(doc(dbClient, "users", uid), {
+    ...data,
+    updatedAt: new Date().toISOString(),
+  });
+};
 
 const getDb = () => {
   if (!db) {

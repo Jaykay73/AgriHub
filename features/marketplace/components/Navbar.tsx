@@ -2,20 +2,17 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, ShoppingCart, Heart, ClipboardList, User, Sprout, Tractor, LayoutDashboard } from 'lucide-react';
-import { signOut } from '@/features/auth/api/firebaseAuthHelpers';
+import { Search, ShoppingCart, ClipboardList, User, Sprout, Tractor, LayoutDashboard } from 'lucide-react';
+import { useCart } from '@/features/cart/hooks/useCart';
 import { useCurrentUser } from '@/features/auth/hooks/useCurrentUser';
 import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const { data: userData, isLoading: loading } = useCurrentUser();
+  const { count: cartCount } = useCart();
   const pathname = usePathname();
   const displayName = userData?.name ?? userData?.email ?? 'Account';
   const isFarmer = userData?.role === 'farmer';
-
-  const handleLogout = async () => {
-    await signOut();
-  };
 
   return (
     <header className="sticky top-0 z-[50] w-full border-b border-border bg-surface/80 backdrop-blur-md">
@@ -44,21 +41,26 @@ export function Navbar() {
         {/* Navigation Actions */}
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 lg:gap-6">
           <NavAction 
-            href="/farmers" 
-            icon={<Tractor className="h-5 w-5" />} 
-            label="Farmers" 
-            isActive={pathname === '/farmers'} 
-          />
-          <NavAction 
             href="/buyer/orders" 
             icon={<ClipboardList className="h-5 w-5" />} 
             label="Orders" 
             isActive={pathname === '/buyer/orders'}
           />
+          <NavAction
+            href="/buyer/cart"
+            icon={<ShoppingCart className="h-5 w-5" />}
+            label="Cart"
+            count={cartCount}
+            isActive={pathname === "/buyer/cart"}
+          />
           
           <div className="hidden lg:flex items-center gap-4">
-            <NavAction href="#" icon={<Heart className="h-5 w-5" />} label="Saved" />
-            <NavAction href="#" icon={<ShoppingCart className="h-5 w-5" />} label="Cart" count={2} />
+            <NavAction 
+              href="/farmers" 
+              icon={<Tractor className="h-5 w-5" />} 
+              label="Farmers" 
+              isActive={pathname === '/farmers'} 
+            />
           </div>
           
           <div className="h-8 w-[2px] rounded-full bg-border mx-2" />
@@ -81,13 +83,13 @@ export function Navbar() {
                 <span className="hidden max-w-32 truncate text-xs font-black text-foreground lg:block">
                   {displayName.split(' ')[0]}
                 </span>
-                <button
-                  onClick={handleLogout}
+                <Link
+                  href="/buyer/profile"
                   className="rounded-xl border-2 border-border bg-white p-2.5 text-xs font-bold text-muted transition hover:border-primary/50 hover:text-primary"
-                  title="Logout"
+                  title="Profile"
                 >
                   <User className="h-5 w-5" />
-                </button>
+                </Link>
               </div>
             </div>
           ) : (

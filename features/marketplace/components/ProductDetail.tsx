@@ -9,7 +9,6 @@ import {
   ShieldCheck, 
   Truck, 
   User, 
-  Star, 
   Minus, 
   Plus, 
   ShoppingBag,
@@ -17,9 +16,11 @@ import {
   Clock,
   CheckCircle2
 } from "lucide-react";
-import { Button } from "@/shared/components/Button";
 import { Badge } from "@/shared/components/Badge";
+import { useCart } from "@/features/cart/hooks/useCart";
+import { Navbar } from "@/features/marketplace/components/Navbar";
 import { formatNaira } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import type { Listing } from "@/shared/types";
 
 interface ProductDetailProps {
@@ -28,33 +29,46 @@ interface ProductDetailProps {
 
 export function ProductDetail({ listing }: ProductDetailProps) {
   const [quantity, setQuantity] = useState(1);
+  const [cartMessage, setCartMessage] = useState("");
+  const { addItem, hasItem } = useCart();
+  const isInCart = hasItem(listing.id);
 
   const incrementQty = () => setQuantity(prev => (prev < listing.quantity ? prev + 1 : prev));
   const decrementQty = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+  const handleAddToCart = () => {
+    const result = addItem({
+      listingId: listing.id,
+      farmerId: listing.farmerId,
+      productName: listing.productName,
+      unit: listing.unit,
+      quantity,
+      availableQuantity: listing.quantity,
+      priceInKobo: listing.priceInKobo,
+      imageUrl: listing.imageUrl,
+    });
+    if (result.replacedDifferentSeller) {
+      setCartMessage(
+        "Cart had items from another seller. Replaced with this seller only.",
+      );
+      return;
+    }
+    setCartMessage("Added to cart.");
+  };
 
   return (
     <div className="min-h-screen bg-surface">
-      {/* Top Nav / Breadcrumbs */}
-      <div className="bg-white border-b border-border/50 sticky top-0 z-30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Link 
-            href="/marketplace" 
-            className="flex items-center gap-2 text-sm font-black text-muted hover:text-primary transition-all group"
-          >
-            <div className="h-8 w-8 rounded-full bg-surface group-hover:bg-primary/10 flex items-center justify-center transition-all">
-              <ArrowLeft className="h-4 w-4" />
-            </div>
-            Back to Marketplace
-          </Link>
-          <div className="flex gap-4">
-            <button className="h-10 w-10 rounded-full bg-surface flex items-center justify-center hover:bg-primary/10 transition-all border border-border/50">
-               <Star className="h-4 w-4 text-muted" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <Navbar />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <Link
+            href="/marketplace"
+            className="inline-flex items-center gap-2 text-sm font-black text-muted hover:text-primary transition-all group"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Marketplace
+          </Link>
+        </div>
         <div className="bg-white rounded-[32px] border-2 border-border/50 shadow-sm overflow-hidden min-h-[600px] flex flex-col md:flex-row">
           
           {/* Image Gallery */}
@@ -65,6 +79,7 @@ export function ProductDetail({ listing }: ProductDetailProps) {
                     src={listing.imageUrl} 
                     alt={listing.productName} 
                     fill 
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover hover:scale-105 transition-all duration-700" 
                   />
                 ) : (
@@ -158,17 +173,36 @@ export function ProductDetail({ listing }: ProductDetailProps) {
                 </div>
 
                 <div className="flex gap-4">
-                   <Link 
-                     href={`/checkout?listingId=${listing.id}&qty=${quantity}`}
-                     className="flex-1 flex h-14 items-center justify-center gap-3 rounded-2xl bg-primary px-8 text-sm font-black text-white shadow-xl shadow-primary/20 hover:-translate-y-1 active:translate-y-0 transition-all active:scale-[0.98]"
-                   >
-                      <ShoppingBag className="h-5 w-5" />
-                      ORDER NOW
-                   </Link>
-                   <button className="flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-border bg-white text-muted hover:border-primary/50 hover:text-primary transition-all">
-                      <Truck className="h-5 w-5" />
-                   </button>
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={isInCart}
+                    className={cn(
+                      "flex-1 flex h-14 items-center justify-center gap-3 rounded-2xl px-8 text-sm font-black text-white transition-all",
+                      isInCart
+                        ? "bg-emerald-600 shadow-xl shadow-emerald-500/20 cursor-default"
+                        : "bg-primary shadow-xl shadow-primary/20 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98]"
+                    )}
+                    title="Add to cart"
+                  >
+                    <ShoppingBag className="h-5 w-5" />
+                    {isInCart ? "ADDED TO CART" : "ADD TO CART"}
+                  </button>
+                  <Link
+                    href="/buyer/cart"
+                    className="flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-border bg-white text-muted hover:border-primary/50 hover:text-primary transition-all"
+                    title="Go to cart"
+                  >
+                    <Truck className="h-5 w-5" />
+                  </Link>
                 </div>
+                {cartMessage ? (
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-primary">
+                    <span>{cartMessage}</span>
+                    <Link href="/buyer/cart" className="underline underline-offset-2">
+                      Proceed to checkout
+                    </Link>
+                  </div>
+                ) : null}
                 
                 <div className="flex items-center gap-6 text-[10px] font-black text-muted uppercase tracking-[0.2em] pt-4 justify-center">
                    <div className="flex items-center gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-600" /> Fast Delivery</div>

@@ -10,7 +10,7 @@ import { Search, SlidersHorizontal, ChevronRight } from "lucide-react";
 
 export const MarketplaceView = () => {
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
+  const category = "All";
   const { data: listings = [], isLoading, isError } = useListings({ search, category });
 
   return (

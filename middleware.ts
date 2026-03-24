@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED_PREFIXES = ["/farmer", "/buyer", "/marketplace", "/product"];
+const PROTECTED_PREFIXES = ["/farmer", "/buyer/orders", "/buyer/profile", "/checkout"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   const uid = request.cookies.get("agrihub_uid")?.value;
   if (!uid) {
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("next", pathname);
+    loginUrl.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(loginUrl);
   }
 
@@ -23,5 +23,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/farmer/:path*", "/buyer/:path*", "/marketplace/:path*", "/product/:path*"],
+  matcher: ["/farmer/:path*", "/buyer/orders/:path*", "/buyer/profile/:path*", "/checkout/:path*"],
 };

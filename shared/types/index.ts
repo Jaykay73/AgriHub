@@ -6,6 +6,8 @@ export type User = {
   email: string;
   role: UserRole;
   location?: string;
+  phoneNumber?: string;
+  address?: string;
   photoURL?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -33,8 +35,16 @@ export type Order = {
   listingId: string;
   buyerId: string;
   farmerId: string;
+  productName: string;
+  buyerName: string;
+  buyerEmail: string;
+  buyerPhone: string;
+  deliveryAddress: string;
   quantity: number;
-  status: "pending" | "accepted" | "fulfilled" | "cancelled";
+  amountInKobo: number;
+  status: "pending" | "paid" | "accepted" | "fulfilled" | "cancelled";
+  paymentStatus: "unpaid" | "paid" | "failed";
+  paymentReference?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -42,9 +52,14 @@ export type Order = {
 export type Transaction = {
   id: string;
   orderId: string;
-  amount: number;
-  currency: string;
-  status: "pending" | "success" | "failed";
+  buyerId: string;
+  farmerId: string;
+  amountInKobo: number;
+  currency: "NGN";
+  paymentReference: string;
+  paymentStatus: "pending" | "paid" | "failed";
+  blockchainHash?: string;
+  polygonTxHash?: string;
   createdAt: string;
 };
 
@@ -53,4 +68,20 @@ export type CreditScore = {
   score: number;
   factors: Record<string, number>;
   updatedAt: string;
+};
+
+export type CartItem = {
+  listingId: string;
+  farmerId: string;
+  productName: string;
+  unit: string;
+  quantity: number;
+  availableQuantity: number;
+  priceInKobo: number;
+  imageUrl?: string;
+};
+
+export type Cart = {
+  farmerId: string | null;
+  items: CartItem[];
 };

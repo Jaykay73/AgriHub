@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ShoppingBag, Leaf } from "lucide-react";
 import { formatNaira } from "@/lib/format";
+import { useCart } from "@/features/cart/hooks/useCart";
+import { cn } from "@/lib/utils";
 import type { Listing } from "@/shared/types";
 
 interface ProductCardProps {
@@ -11,6 +13,22 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ listing }: ProductCardProps) {
+  const { addItem, hasItem } = useCart();
+  const isInCart = hasItem(listing.id);
+
+  const handleAddToCart = () => {
+    addItem({
+      listingId: listing.id,
+      farmerId: listing.farmerId,
+      productName: listing.productName,
+      unit: listing.unit,
+      quantity: 1,
+      availableQuantity: listing.quantity,
+      priceInKobo: listing.priceInKobo,
+      imageUrl: listing.imageUrl,
+    });
+  };
+
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-[24px] border-2 border-border/50 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10">
       
@@ -21,6 +39,7 @@ export function ProductCard({ listing }: ProductCardProps) {
             src={listing.imageUrl}
             alt={listing.productName}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
         ) : (
@@ -59,12 +78,26 @@ export function ProductCard({ listing }: ProductCardProps) {
               <span className="text-xl font-black text-primary">{formatNaira(listing.priceInKobo)}</span>
            </div>
            
-           <Link 
-             href={`/product/${listing.id}`}
-             className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all hover:scale-110 active:scale-95"
-           >
-              <ShoppingBag className="h-4 w-4" />
-           </Link>
+           <div className="flex items-center gap-2">
+             <button
+               onClick={handleAddToCart}
+               disabled={isInCart}
+               className={cn(
+                 "inline-flex h-10 items-center justify-center rounded-xl border-2 px-3 text-[10px] font-black uppercase tracking-widest transition-all",
+                 isInCart 
+                   ? "bg-emerald-600 border-emerald-600 text-white cursor-default shadow-lg shadow-emerald-500/20" 
+                   : "border-border bg-white text-foreground hover:border-primary/50 hover:text-primary"
+               )}
+             >
+               {isInCart ? "Added" : "Add"}
+             </button>
+             <Link 
+               href={`/product/${listing.id}`}
+               className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all hover:scale-110 active:scale-95"
+             >
+                <ShoppingBag className="h-4 w-4" />
+             </Link>
+           </div>
         </div>
       </div>
     </div>
