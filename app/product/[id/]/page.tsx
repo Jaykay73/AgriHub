@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useListing } from "@/features/marketplace/hooks/useListing";
 import { ProductDetail } from "@/features/marketplace/components/ProductDetail";
 import { Spinner } from "@/shared/components/Spinner";
-import { Leaf } from "lucide-react";
+import { ArrowLeft, Leaf } from "lucide-react";
 import Link from "next/link";
 
 export default function ProductDetailPage() {
