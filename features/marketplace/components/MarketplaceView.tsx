@@ -7,6 +7,7 @@ import { ProductGrid } from "@/features/marketplace/components/ProductGrid";
 import { useListings } from "@/features/marketplace/hooks/useListings";
 import { Spinner } from "@/shared/components/Spinner";
 import { Search, SlidersHorizontal, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const MarketplaceView = () => {
   const [search, setSearch] = useState("");
@@ -17,33 +18,23 @@ export const MarketplaceView = () => {
     <div className="min-h-screen bg-surface selection:bg-primary/20">
       <Navbar />
       
-      {/* Hero / Header Section */}
-      <div className="bg-white border-b border-border/50 pt-10 pb-16">
+      {/* Category Navigation */}
+      <div className="bg-white border-b border-border/50 py-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <div className="mb-2 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-primary">
-                Explore Marketplace <ChevronRight className="h-3 w-3" />
-              </div>
-              <h1 className="text-4xl font-black text-foreground tracking-tight sm:text-5xl">
-                Fresh from the <span className="text-primary italic">Source.</span>
-              </h1>
-              <p className="mt-4 max-w-2xl font-medium text-muted leading-relaxed">
-                Direct access to high-quality agricultural produce. Verified farmers, transparent pricing, and blockchain-backed quality assurance.
-              </p>
-            </div>
-            
-            {/* Quick Search */}
-            <div className="relative w-full max-w-sm md:mb-1">
-               <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted transition-colors group-focus-within:text-primary" />
-               <input 
-                 type="text"
-                 placeholder="Search for farm produce..."
-                 value={search}
-                 onChange={(e) => setSearch(e.target.value)}
-                 className="w-full rounded-2xl border-2 border-border bg-surface pl-12 pr-4 py-4 text-sm font-bold shadow-sm transition-all focus:border-primary focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary/10"
-               />
-            </div>
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-2 lg:pb-0">
+             {["All Produce", "Poultry", "Tubers", "Grains", "Vegetables", "Oils", "Fruits", "Livestock"].map((cat) => (
+                <button
+                  key={cat}
+                  className={cn(
+                    "whitespace-nowrap rounded-full px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all",
+                    cat === "All Produce" 
+                      ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                      : "bg-surface text-muted hover:bg-border/50 hover:text-foreground"
+                  )}
+                >
+                  {cat}
+                </button>
+             ))}
           </div>
         </div>
       </div>
@@ -62,7 +53,28 @@ export const MarketplaceView = () => {
           </div>
 
           {/* Product Feed */}
-          <div className="flex-1 space-y-8">
+          <div className="flex-1 space-y-10">
+            {/* Feature Banner */}
+            <div className="group relative overflow-hidden rounded-[40px] bg-primary p-12 text-white shadow-xl shadow-primary/10 transition-all hover:shadow-2xl hover:shadow-primary/20">
+               <div className="absolute top-0 right-0 p-48 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-white/15 transition-all" />
+               
+               <div className="relative z-10 max-w-2xl space-y-6">
+                  <div className="inline-block rounded-full bg-white/20 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-md">
+                     New Arrival
+                  </div>
+                  <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
+                    Premium Hill Country <span className="text-white opacity-60 italic">Yams</span> Just Harvested.
+                  </h2>
+                  <p className="text-sm font-bold opacity-80 max-w-lg leading-relaxed">
+                    Direct from Benue state. Verified organic and blockchain-tracked for ultimate quality assurance. Sourced from our best farm collective.
+                  </p>
+                  <button className="flex h-14 items-center gap-3 rounded-2xl bg-[#f4a261] px-8 text-xs font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-[#f4a261]/20 transition-all hover:bg-[#e76f51] hover:-translate-y-1 active:translate-y-0 active:scale-[0.98]">
+                     Shop Now
+                     <ChevronRight className="h-4 w-4" />
+                  </button>
+               </div>
+            </div>
+
             <div className="flex flex-col gap-4 border-b border-border/50 pb-6 sm:flex-row sm:items-center sm:justify-between">
                <div>
                   <h2 className="text-2xl font-black text-foreground tracking-tight">
