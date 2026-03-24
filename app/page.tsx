@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutGrid, ListFilter, SlidersHorizontal, ChevronRight, Sprout } from 'lucide-react';
 import { Navbar } from '@/features/marketplace/components/Navbar';
 import { Sidebar } from '@/features/marketplace/components/Sidebar';

@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { Heart, ShoppingCart, Star, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 
 export interface Product {
   id: string;

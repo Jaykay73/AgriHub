@@ -1,8 +1,6 @@
 'use client';
 
 import { Search, ShoppingCart, Heart, ClipboardList, User, Sprout } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 
 export function Navbar() {
   return (

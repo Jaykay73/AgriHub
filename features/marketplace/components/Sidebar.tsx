@@ -5,7 +5,6 @@ import * as Slider from '@radix-ui/react-slider';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { Star, Check, RotateCcw, Truck, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface SidebarProps {
