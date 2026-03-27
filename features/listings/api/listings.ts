@@ -14,6 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { DEMO_LISTING_IMAGE_URLS, resolveListingImageUrl } from "@/lib/listingImage";
 import { logger } from "@/lib/logger";
 import type { Listing } from "@/shared/types";
 
@@ -83,7 +84,7 @@ const mapListing = (id: string, raw: Record<string, unknown>): Listing => ({
   productName: String(raw.productName ?? ""),
   category: String(raw.category ?? "Other"),
   description: String(raw.description ?? ""),
-  imageUrl: raw.imageUrl ? String(raw.imageUrl) : "",
+  imageUrl: resolveListingImageUrl(raw),
   priceInKobo: Number(raw.priceInKobo ?? 0),
   quantity: Number(raw.quantity ?? 0),
   unit: String(raw.unit ?? ""),
@@ -214,7 +215,7 @@ export const seedDemoListings = async (input: {
       productName,
       category,
       description: `${productName} from verified farm source.`,
-      imageUrl: "",
+      imageUrl: DEMO_LISTING_IMAGE_URLS[i % DEMO_LISTING_IMAGE_URLS.length],
       priceInKobo,
       quantity,
       unit: "kg",

@@ -30,6 +30,7 @@ interface ProductDetailProps {
 export function ProductDetail({ listing }: ProductDetailProps) {
   const [quantity, setQuantity] = useState(1);
   const [cartMessage, setCartMessage] = useState("");
+  const [imageFailed, setImageFailed] = useState(false);
   const { addItem, hasItem } = useCart();
   const isInCart = hasItem(listing.id);
 
@@ -74,13 +75,14 @@ export function ProductDetail({ listing }: ProductDetailProps) {
           {/* Image Gallery */}
           <div className="w-full md:w-1/2 bg-surface p-8 flex flex-col items-center justify-center relative border-r border-border/50">
              <div className="relative aspect-square w-full max-w-md overflow-hidden rounded-[24px] bg-white shadow-xl shadow-primary/5">
-                {listing.imageUrl ? (
+                {listing.imageUrl && !imageFailed ? (
                   <Image 
                     src={listing.imageUrl} 
                     alt={listing.productName} 
                     fill 
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover hover:scale-105 transition-all duration-700" 
+                    onError={() => setImageFailed(true)}
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center text-muted opacity-20"><Leaf className="h-32 w-32" /></div>

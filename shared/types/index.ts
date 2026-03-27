@@ -6,6 +6,8 @@ export type User = {
   email: string;
   role: UserRole;
   location?: string;
+  /** Farm or business display name (often used for farmer profiles). */
+  farmName?: string;
   phoneNumber?: string;
   address?: string;
   paymentDetails?: {
@@ -96,4 +98,18 @@ export type CartItem = {
 export type Cart = {
   farmerId: string | null;
   items: CartItem[];
+};
+
+export type LoanApplicationStatus =
+  | "pending"
+  | "under_review"
+  | "approved"
+  | "rejected";
+
+export type LoanApplicationSummary = {
+  id: string;
+  farmerId: string;
+  requestedAmountNaira: number;
+  status: LoanApplicationStatus;
+  createdAtMs: number;
 };

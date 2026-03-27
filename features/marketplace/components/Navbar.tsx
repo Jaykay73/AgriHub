@@ -1,16 +1,31 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Search, ShoppingCart, ClipboardList, User, Sprout, Tractor, LayoutDashboard } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Search, ShoppingCart, ClipboardList, User, Sprout, Tractor, LayoutDashboard, LogOut } from 'lucide-react';
 import { useCart } from '@/features/cart/hooks/useCart';
 import { useCurrentUser } from '@/features/auth/hooks/useCurrentUser';
+import { signOut } from '@/features/auth/api/firebaseAuthHelpers';
 import { cn } from '@/lib/utils';
 
 export function Navbar() {
+  const router = useRouter();
+  const [signingOut, setSigningOut] = useState(false);
   const { data: userData, isLoading: loading } = useCurrentUser();
   const { count: cartCount } = useCart();
   const pathname = usePathname();
+
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    try {
+      await signOut();
+      router.push('/login');
+      router.refresh();
+    } finally {
+      setSigningOut(false);
+    }
+  };
   const displayName = userData?.name ?? userData?.email ?? 'Account';
   const isFarmer = userData?.role === 'farmer';
 
@@ -90,6 +105,16 @@ export function Navbar() {
                 >
                   <User className="h-4 w-4" />
                 </Link>
+                <button
+                  type="button"
+                  disabled={signingOut}
+                  onClick={handleSignOut}
+                  className="rounded-lg border-2 border-border bg-white p-2 text-xs font-bold text-muted transition hover:border-red-200 hover:text-red-600 disabled:opacity-60"
+                  title="Log out"
+                  aria-label="Log out"
+                >
+                  <LogOut className="h-4 w-4" />
+                </button>
               </div>
             </div>
           ) : (

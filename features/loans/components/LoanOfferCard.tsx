@@ -9,12 +9,20 @@ interface LoanOfferCardProps {
   interestRate: number;
   tenure: string;
   repaymentSchedule: string;
+  onAccept?: () => void;
+  acceptDisabled?: boolean;
 }
 
-export function LoanOfferCard({ amount, interestRate, tenure, repaymentSchedule }: LoanOfferCardProps) {
+export function LoanOfferCard({
+  amount,
+  interestRate,
+  tenure,
+  repaymentSchedule,
+  onAccept,
+  acceptDisabled = false,
+}: LoanOfferCardProps) {
   return (
-    <div className="flex flex-col h-full rounded-[32px] border-2 border-primary/20 bg-gradient-to-br from-white to-primary/5 p-6 shadow-sm relative overflow-hidden group">
-      <div className="absolute -top-12 -right-12 h-24 w-24 rounded-full bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-colors" />
+    <div className="flex flex-col h-full rounded-[32px] border-2 border-primary/20 bg-white p-6 shadow-sm relative overflow-hidden group">
       
       <div className="flex items-center gap-2 mb-6">
         <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-primary text-white shadow-md shadow-primary/30">
@@ -66,10 +74,20 @@ export function LoanOfferCard({ amount, interestRate, tenure, repaymentSchedule 
       </div>
 
       <div className="mt-8">
-        <Button className="w-full h-12 text-xs font-black uppercase tracking-widest group relative shadow-lg shadow-primary/20">
+        <Button
+          type="button"
+          onClick={acceptDisabled ? undefined : onAccept}
+          disabled={acceptDisabled}
+          className="w-full h-12 text-xs font-black uppercase tracking-widest group relative shadow-lg shadow-primary/20"
+        >
           Accept Credit Line
           <ArrowRight className="ml-2 h-4 w-4 transform translate-x-0 group-hover:translate-x-1 transition-transform" />
         </Button>
+        {acceptDisabled ? (
+          <p className="mt-3 text-center text-[10px] font-bold text-amber-800 uppercase tracking-tight">
+            Submit a new application after your current one is reviewed.
+          </p>
+        ) : null}
         <p className="mt-3 text-[8px] text-center text-muted font-bold flex items-center justify-center gap-1 uppercase tracking-[0.2em] leading-none">
           <Info className="h-3 w-3" />
           T&C Applies &bull; Verified

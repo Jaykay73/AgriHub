@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { MapPin, ShoppingBag, Leaf } from "lucide-react";
 import { formatNaira } from "@/lib/format";
 import { useCart } from "@/features/cart/hooks/useCart";
@@ -13,6 +14,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ listing }: ProductCardProps) {
+  const [imageFailed, setImageFailed] = useState(false);
   const { addItem, hasItem } = useCart();
   const isInCart = hasItem(listing.id);
 
@@ -34,13 +36,14 @@ export function ProductCard({ listing }: ProductCardProps) {
 
       {/* Image Section */}
       <Link href={`/product/${listing.id}`} className="relative h-48 w-full overflow-hidden bg-surface">
-        {listing.imageUrl ? (
+        {listing.imageUrl && !imageFailed ? (
           <Image
             src={listing.imageUrl}
             alt={listing.productName}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
+            onError={() => setImageFailed(true)}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-muted opacity-20">

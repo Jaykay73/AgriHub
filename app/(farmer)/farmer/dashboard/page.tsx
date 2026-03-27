@@ -1,5 +1,6 @@
 import { Tractor, Upload, CreditCard, Inbox, TrendingUp, DollarSign, Package, Users } from "lucide-react";
 import Link from "next/link";
+import { DashboardLoanApplicationSummary } from "@/features/loans/components/DashboardLoanApplicationSummary";
 
 export default function FarmerDashboardPage() {
   const metrics = [
@@ -28,6 +29,8 @@ export default function FarmerDashboardPage() {
           Create New Listing
         </Link>
       </div>
+
+      <DashboardLoanApplicationSummary />
 
       {/* Metrics Section */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

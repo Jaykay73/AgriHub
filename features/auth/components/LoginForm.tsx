@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import {
   signInWithEmail,
-  signInWithGoogle,
+  // signInWithGoogle,
 } from "@/features/auth/api/firebaseAuthHelpers";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -50,18 +50,18 @@ export const LoginForm = () => {
     }
   };
 
-  const onGoogleSignIn = async () => {
-    setError("");
-    setLoading(true);
-    try {
-      const credential = await signInWithGoogle();
-      await routeByRole(credential.user.uid);
-    } catch {
-      setError("Google sign-in failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const onGoogleSignIn = async () => {
+  //   setError("");
+  //   setLoading(true);
+  //   try {
+  //     const credential = await signInWithGoogle();
+  //     await routeByRole(credential.user.uid);
+  //   } catch {
+  //     setError("Google sign-in failed. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <form onSubmit={onSubmit} className="space-y-5">
@@ -105,7 +105,7 @@ export const LoginForm = () => {
         {loading ? "Signing in..." : "Sign In"}
       </button>
 
-      <button
+      {/* <button
         disabled={loading}
         type="button"
         onClick={onGoogleSignIn}
@@ -118,7 +118,7 @@ export const LoginForm = () => {
           <path d="M12.0004 24.0001C15.2404 24.0001 17.9654 22.935 19.9454 21.095L16.0804 18.095C15.0054 18.82 13.6204 19.245 12.0004 19.245C8.8704 19.245 6.21537 17.135 5.26538 14.29L1.27539 17.385C3.25539 21.31 7.3104 24.0001 12.0004 24.0001Z" fill="#34A853" />
         </svg>
         Continue with Google
-      </button>
+      </button> */}
 
       <p className="mt-8 text-center text-sm font-medium text-muted">
         New here?{" "}

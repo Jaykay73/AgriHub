@@ -2,12 +2,26 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Sprout, LayoutDashboard, LayoutList, ClipboardList, Settings, LogOut, Menu, X, Tractor, Wallet } from "lucide-react";
+import { signOut } from "@/features/auth/api/firebaseAuthHelpers";
 
 export default function FarmerLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    try {
+      await signOut();
+      router.push("/login");
+      router.refresh();
+    } finally {
+      setSigningOut(false);
+    }
+  };
 
   const navLinks = [
     { name: "Overview", href: "/farmer/dashboard", icon: LayoutDashboard },
@@ -84,9 +98,14 @@ export default function FarmerLayout({ children }: { children: React.ReactNode }
               <p className="truncate text-xs text-muted">Verified Seller</p>
             </div>
           </div>
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-red-600 transition-colors hover:bg-red-50">
+          <button
+            type="button"
+            disabled={signingOut}
+            onClick={handleSignOut}
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-red-600 transition-colors hover:bg-red-50 disabled:opacity-60"
+          >
             <LogOut className="h-5 w-5" />
-            Sign Out
+            {signingOut ? "Signing out..." : "Sign Out"}
           </button>
         </div>
       </aside>
