@@ -10,7 +10,6 @@ The platform combines:
 
 - Marketplace (farmers ↔ buyers)
 - Machine Learning (credit scoring)
-- Blockchain-inspired verification (trust layer)
 - Payment integration (loan disbursement & repayment)
 
 ---
@@ -62,10 +61,9 @@ Frontend (Next.js)
 ↓
 Backend Services
 ├── ML Credit Scoring API (FastAPI)
-├── Blockchain Verification Layer (Local)
 ├── Payment Integration (Interswitch)
 ↓
-Cloud Services (Firebase, Cloudinary)
+Cloud Services (Firebase)
 
 ````
 
@@ -112,7 +110,7 @@ Planned flow:
 Supports:
 
 - Direct payments
-- Future integration with providers (e.g., Interswitch)
+- integration with providers (e.g., Interswitch)
 
 ---
 
@@ -208,7 +206,7 @@ If approved:
 * FastAPI (ML API)
 * Python (ML models)
 * Firebase (data storage)
-* Cloudinary (media storage)
+
 
 ### Machine Learning
 
