@@ -19,7 +19,7 @@ The platform combines:
 
 Millions of farmers:
 
-- Sell products informally
+- Sell products informally and struggle to find competitive buyers
 - Lack financial records
 - Cannot access loans
 
