@@ -154,24 +154,6 @@ This service:
 
 ---
 
-### 5. Blockchain Verification (Local)
-
-AgriHub includes a local blockchain layer to improve trust.
-
-#### What it does
-
-* Batches transactions
-* Hashes them using a Merkle Tree
-* Stores only the root on-chain
-
-#### Why
-
-* Detect tampering
-* Prove transaction integrity
-* Improve trust in credit scoring
-
----
-
 ### 6. Loan System
 
 #### Flow
@@ -237,7 +219,7 @@ If approved:
 ### Other Tools
 
 * React Query (data fetching)
-* ethers (future blockchain integration)
+
 
 ---
 
@@ -299,19 +281,6 @@ fetch("/credit-score", {
   body: JSON.stringify(data)
 });
 ```
-
----
-
-## Future Enhancements
-
-* Full blockchain node network
-* Real-time credit scoring dashboard
-* Automated loan repayment tracking
-* AI-based fraud detection
-* Mobile application
-* Logistics and delivery integration
-
----
 
 ## Impact
 
